@@ -1,32 +1,49 @@
 <?php
+/*
+echo "<pre>";
+print_r();
+echo"</pre>";
+*/
 require_once('PersonCalender.php');
+require_once('Movies.php');
 
 class Scraper{
-  private $url = '';
+  private $startURL = '';
   private $dom;
 
   public function Scraper(){
     //en if sats om användaren har klickat på skcika
-    $this->url = 'http://localhost:8080';
+    $this->startURL = 'http://localhost:8080';
     $this->dom = new DOMDocument();
-    $this->start();
+    $movies = new Movies($this->dom, $this->startURL);
+    $this->start($movies);
   }
 
-  private function start(){
-    $firstPage = file_get_contents($this->url);
+  private function start($movies){
+    $firstPage = file_get_contents($this->startURL);
 
     if($this->dom->loadHTML($firstPage)){
       $xPath = new DOMXPath($this->dom);
-      $links = $xPath->query('//a');//allt som fins i a-taggen
-      $this->calenderStart($links[0]->getAttribute("href"));
+      $linksNodeList = $xPath->query('//a');//allt som fins i a-taggen
+      $linksArray = Array();
+      /*
+      foreach ($linksNodeList as $link) {
+        array_push($linksArray, $link);
+      }
+      $theGoodDays = $this->calenderStart($linksArray[0]->getAttribute("href"));
+      */
+      $theGoodDays = Array('Fredag');
+      //$movieURL = $this->startURL . $linksArray[1]->getAttribute("href");
+
+      $movies->start($theGoodDays, '/cinema');
     }else{
       echo "gick inte att hämta första sidan";
     }
   }
 
   private function calenderStart($calenderURL){
-    $this->url = $this->url . $calenderURL;
-    $calenderPage = file_get_contents($this->url);
+    $url = $this->startURL . $calenderURL;
+    $calenderPage = file_get_contents($url);
 
     if($this->dom->loadHTML($calenderPage)){
       $xPath = new DOMXPath($this->dom);
@@ -34,28 +51,29 @@ class Scraper{
       $allPersonsAgendas = Array();
 
       foreach ($links as $item) {
-        $personAgenda = $this->getPersonAgenda($item->getAttribute("href"));//allas agendor i en array
+        $personAgenda = $this->getPersonAgenda($item->getAttribute("href"), $url);//allas agendor i en array
         array_push($allPersonsAgendas, $personAgenda);
       }
-      /*echo "<pre>";
-      print_r($allPersonsAgendas);
-      echo"</pre>";*/
-      $theGoodDay = $this->compareDays($allPersonsAgendas);
-
+      $theGoodDays = $this->compareDays($allPersonsAgendas);
+      return $theGoodDays;
     }else{
+      return null;
       echo "gick inte att hämta kalender sidan";
     }
   }
 
-  private function getPersonAgenda($urlToPersonCalender){
-      $calenderPersonPage = file_get_contents($this->url .'/'. $urlToPersonCalender);
+  private function getPersonAgenda($urlToPersonCalender, $url){
+      $calenderPersonPage = file_get_contents($url .'/'. $urlToPersonCalender);
       //lägg en person i ett object(namn, dag, OK)
       if($this->dom->loadHTML($calenderPersonPage)){
         $xPath = new DOMXPath($this->dom);
-        $nameList = $xPath->query('//h2');//får en lista av namn
-        $personCalender = new PersonCalender($nameList[0]->nodeValue);
+        $nameNodeList = $xPath->query('//h2');//får en lista av namn
+        $nameArray = Array();
+        foreach ($nameNodeList as $name) {
+          array_push($nameArray, $name);
+        }
+        $personCalender = new PersonCalender($nameArray[0]->nodeValue);
         $daysArray = Array();
-        //$personArray = Array();
 
         $daysList = $xPath->query('//tbody/tr//td');
         foreach ($daysList as $day) {
@@ -69,38 +87,33 @@ class Scraper{
       }else{
         echo "gick inte att hämta kalender sidan";
       }
-      //array_push($personArray, $personCalender);
       return $personCalender;
   }
 
   private function compareDays($allPersonsAgendas){
-    //for ($i = 0; $i < count($allPersonsAgendas); $i++) {
-      //$onePerson = $allPersonsAgendas[$i];
-      echo "<pre>";
-      print_r($allPersonsAgendas);
-      echo"</pre>";
+      $theGoodDay = Array();
       if(
       $allPersonsAgendas[0]->getFri() == $allPersonsAgendas[1]->getFri() &&
       $allPersonsAgendas[0]->getFri() == $allPersonsAgendas[2]->getFri() &&
       $allPersonsAgendas[1]->getFri() == $allPersonsAgendas[2]->getFri()
       ){
-        echo "Alla kan Fredag";
+        array_push($theGoodDay, 'Fredag');
       }
       if(
       $allPersonsAgendas[0]->getSat() == $allPersonsAgendas[1]->getSat() &&
       $allPersonsAgendas[0]->getSat() == $allPersonsAgendas[2]->getSat() &&
       $allPersonsAgendas[1]->getSat() == $allPersonsAgendas[2]->getSat()
       ){
-        echo "Alla kan Lör";
+        array_push($theGoodDay,  'Lördag');
       }
       if(
       $allPersonsAgendas[0]->getSun() == $allPersonsAgendas[1]->getSun() &&
       $allPersonsAgendas[0]->getSun() == $allPersonsAgendas[2]->getSun() &&
       $allPersonsAgendas[1]->getSun() == $allPersonsAgendas[2]->getSun()
       ){
-        echo "Alla kan Sön";
+        array_push($theGoodDay, 'Söndag');
       }
-
+      return $theGoodDay;
   }
 
 }
