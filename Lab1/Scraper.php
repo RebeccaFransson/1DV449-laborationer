@@ -10,7 +10,7 @@ require_once('Movies.php');
 require_once('Resturant.php');
 
 class Scraper{
-  private $startURL = '';
+  private $startURL;
   private $dom;
   private $view;
 
@@ -20,14 +20,12 @@ class Scraper{
     $this->dom = new DOMDocument();
 
       //ny url av användare, hämta filmerna
-
       if($this->view->getIsURLGiven() != null){
-        $_SESSION["url"] = $this->view->getIsURLGiven();
         $this->startURL = $this->view->getIsURLGiven();
+        header('Location: ?url='.$this->startURL);
       }
-      if(isset($_SESSION["url"])){
-        $this->startURL = $_SESSION["url"];
-        //$this->startURL = 'http://localhost:8080';
+      if(isset($_GET['url'])){
+        $this->startURL = $_GET['url'];
         $firstPage = file_get_contents($this->startURL);
         if($this->dom->loadHTML($firstPage)){
           $xPath = new DOMXPath($this->dom);
@@ -39,30 +37,24 @@ class Scraper{
             array_push($linksArray, $link);
           }
 
-
         //Hämtar de dagar som passar sällskapet
         $theGoodDays = $this->calenderStart($linksArray[0]->getAttribute("href"));
-        //$theGoodDays = array(null, 'lordag');
 
         $movies = new Movies($this->dom, $this->startURL);
         //Hämtar Filmerna, tiden och dagen som går någon av dem bra dagarna
         $movieAndTimeArray = $movies->start($theGoodDays, $linksArray[1]->getAttribute("href"));
-        //$movieAndTimeArray = Array(new MovieAndTime('Filmnamn', '16:00', 'lordag'));//ta bort sen
-        $this->view->setResult($movieAndTimeArray);
-        if($this->view->userWannaBook() != null){
-          $booking = $this->view->userWannaBook();
+        $this->view->setResult($movieAndTimeArray, '?url='.$this->startURL);
+          if($this->view->userWannaBook() != null){
+            $booking = $this->view->userWannaBook();
 
-          $resturant = new Resturant();
-          $timeForResturant = $resturant->start($this->dom, $this->startURL.$linksArray[2]->getAttribute("href"), substr($booking, 0, 5), substr($booking, 5));
-          $this->view->chooseResturant($timeForResturant);
-          session_destroy();
-        }
-      }else{
-      echo "gick inte att hämta första sidan";
-    }
-
+            $resturant = new Resturant();
+            $timeForResturant = $resturant->start($this->dom, $this->startURL.$linksArray[2]->getAttribute("href"), substr($booking, 0, 5), substr($booking, 5));
+            $this->view->chooseResturant($timeForResturant);
+          }
+        }else{
+        echo "gick inte att hämta första sidan";
       }
-  //ifsatsen
+      }
 }
 
 /*Applikationen börjar med att hämta alla länkar på sidan

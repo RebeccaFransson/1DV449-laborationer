@@ -20,7 +20,7 @@ class View
       <body>
       <form method="post" >
         <input type="text" name="'.self::$Url.'" placeholder=" Skriv din url ">
-        <input type="submit" name="' . self::$SendUrl . '" value="Scrape the shit out of it!" />
+        <input type="submit" name="' . self::$SendUrl .'" value="Scrape the shit out of it!" />
         </form>
         '.$this->outcome.'
       </body>
@@ -45,12 +45,12 @@ class View
     }
   }
   //skriver ut alla filmen som går den bra dagen
-  public function setResult($movieAndTimeArray)
+  public function setResult($movieAndTimeArray, $url)
   {
     if($movieAndTimeArray != null){
       $this->outcome = '<ul>';
       foreach ($movieAndTimeArray as $movieAndTimeObj) {
-        $this->outcome .= '<li> Filmen '.$movieAndTimeObj->getMovie().' visas kl '.$movieAndTimeObj->getMovieTime().' på '. $movieAndTimeObj->getDay() .'        <a href="?'.self::$BookUrl.'='.$movieAndTimeObj->getMovieTime().$movieAndTimeObj->getDay().'">Leta upp bord till dennna filmen</a>';
+        $this->outcome .= '<li> Filmen '.$movieAndTimeObj->getMovie().' visas kl '.$movieAndTimeObj->getMovieTime().' på '. $movieAndTimeObj->getDay() .'        <a href="'.$url.'&'.self::$BookUrl.'='.$movieAndTimeObj->getMovieTime().$movieAndTimeObj->getDay().'">Leta upp bord till dennna filmen</a>';
       }
       $this->outcome .= '</ul>';
     }else{
@@ -69,5 +69,6 @@ class View
     }else{
       $this->outcome = 'Tyvärr finns det inga bord tillgängliga efter denna film';
     }
+    $this->outcome .= '<a href="'.$_SERVER['HTTP_REFERER'].'">Tillbaka</a>';
   }
 }
