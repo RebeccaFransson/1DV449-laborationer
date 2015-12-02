@@ -29,7 +29,7 @@ Skriv kod så att när användaren loggar ut förstörs dess kaka.
 ### Sql-injections
 _Teori_
 
-Användaren skriver in en sql-fråga så att den passar sql-frågan som ställs vid inlogging, på så sätt kan den manipulera frågan och få ett helt annorlunda svar. Tex vid inlogging skriver  användaren frågan “om 1 är lika med 1 låt mig logga in”.
+Idenna applikationen kan en användare skriva in en sql-fråga så att den passar sql-frågan som ställs vid inlogging, på så sätt kan den manipulera frågan och få ett helt annorlunda svar. Tex vid inlogging skriver  användaren frågan “om 1 är lika med 1 låt mig logga in”.
 [3]
 
 
@@ -64,21 +64,45 @@ När det gäller att bara skriva in taggar så kan man som programmerare göra o
 Man kan också göra en whitelist - då man bara tilllåter ett visst antal tecken från användaren.
 [6]
 
+### Osäkra object referenser / Icke-hashade lösenord
+_Teori_
+
+I applikationen kan användaren komma åt databasen genom att skriva in /static/message.db i urlen. En användare kanske gissa sig till(jag såg det i min GITBash när jag startade applikationen) denna sökvägen.
+I consolen skrivs också /message/data ut. Om man går in på den länken kan man se alla meddelanden i chatten utan att vara inloggad. Detta kallas "Insecure Direct Object References".[8]
+I databasen kunde jag se att lösenorden inte var krypterade eller hashade, detta kudne jag också se när jag läste koden.[9]
+
+
+
+_Konsekvenser_
+
+Genom att en användaren kan komma åt /message/data så pass lätt behöver den inte logga in för att ta del av meddelanden som andra användere skriver.
+Med riskerna att hitta databsen och icke-hashade lösenord är det lätt för en användare att få tag på allas konton och kanske till och med hela applikationen!
+
+
+_Åtgärder_
+
+Som programmerare kan man skriva kod som gör att en användare inte kommer åt detta sökvägarna om den inte har tillgång till det.[8]
+
 # Prestandaproblem
 
 # Egna övergripande reflektioner
 
 # Referenser
 
-[1] OWASP, "OWASP Top 10 The ten most critical web application security risks”, s. 8.
+[1] The Open Web Application Security Project, "OWASP Top 10 The ten most critical web application security risks”, s. 8.
 
-[2] OWASP, "OWASP Periodic Table of Vulnerabilities", Tillgänglig: [Cookie Theft/Session Hijacking](https://www.owasp.org/index.php/OWASP_Periodic_Table_of_Vulnerabilities#Periodic_Table_of_Vulnerabilities).
+[2] The Open Web Application Security Project, "OWASP Periodic Table of Vulnerabilities", Tillgänglig: [Cookie Theft/Session Hijacking](https://www.owasp.org/index.php/OWASP_Periodic_Table_of_Vulnerabilities#Periodic_Table_of_Vulnerabilities).
 
-[3] OWASP, "OWASP Top 10 The ten most critical web application security risks”, s. 7.
+[3] The Open Web Application Security Project, "OWASP Top 10 The ten most critical web application security risks”, s. 7.
 
 [4] OWASP, "OWASP Periodic Table of Vulnerabilities", Tillgänglig: [SQL Injections](https://www.owasp.org/index.php/OWASP_Periodic_Table_of_Vulnerabilities_-_SQL_Injection).
-[5] OWASP, "OWASP Top 10 The ten most critical web application security risks”, s. 9.
 
-[6] OWASP, "OWASP Periodic Table of Vulnerabilities", Tillgänglig: [Cross.Site Scripting](https://www.owasp.org/index.php/OWASP_Periodic_Table_of_Vulnerabilities_-_Cross-Site_Scripting_(XSS)).
+[5] The Open Web Application Security Project, "OWASP Top 10 The ten most critical web application security risks”, s. 9.
 
-[7] Johan Leitet Tillgänglig: “[Webbteknik II - HT13 - Webbsäkerhet](https://www.youtube.com/watch?v=Gc_pc9TMEIk)”.
+[6] The Open Web Application Security Project, "OWASP Periodic Table of Vulnerabilities", Tillgänglig: [Cross.Site Scripting](https://www.owasp.org/index.php/OWASP_Periodic_Table_of_Vulnerabilities_-_Cross-Site_Scripting_(XSS)).
+
+[7] Johan Leitet, Tillgänglig: “[Webbteknik II - HT13 - Webbsäkerhet](https://www.youtube.com/watch?v=Gc_pc9TMEIk)”.
+
+[8] The Open Web Application Security Project, "OWASP Top 10 The ten most critical web application security risks”, s. 10.
+
+[9] The Open Web Application Security Project, "OWASP Top 10 The ten most critical web application security risks”, s. 12.
