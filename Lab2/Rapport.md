@@ -44,7 +44,7 @@ Istället kan programmeren använda sig utav lagrade procedurer och inte en quer
 Eller kommunicera med ett API som ger programmeraren information istället för att direkt kommunicera med databasen.[4]
 
 
-### XSS, HTTPOnly
+### XSS
 _Teori_
 
 Användaren kan skriva in taggar och kod i denna applikationen. Detta sker när text eller ett script skickas till applikationen utan att ha blivit validerade ordentligt. Med andra ord kan en användare skicka in skadlig kod i applikationen.[5]
@@ -85,7 +85,6 @@ Det är också viktigt att hasha lösenord innan man lägger in dem i databasen.
 
 
 # Prestandaproblem
-
 ### Inline
 Man kan hitta på css och javascript inline i html-koden, det är aldrig bra och mycket lätt att byta ut och lägga i egna filer. Att skriva kod och css inline gör bara lata användare.
 
@@ -111,12 +110,11 @@ Förutom det uppenbara som jag skrivit i ovanstående rubriker tycker jag att de
 Det är alldeles för många app_moduler som finns i applikationen men som inte används.
 
 ### Laborationen
-Laborationen har varit rolig och lärorik, det var skönt, men samtisigt svårt, att byta lärosätt(att vi inte programmerade). Jag tror dock att jag lärt mig mycket mer genom denna laborationen än om vi skulle provat programmera allt detta(det hade dessutom tagit mycket längre tid). Vi har dock aldrig gått igenom säkerhet så här invecklat så det var mycket att ta till sig men allt kändes väldigt relevant. Med denna laborationen kunde man också koppla teorin med praktiken och det är alltid ett bra sätt att lära sig på tycker jag!
+Laborationen har varit rolig och lärorik, det var skönt, men samtidigt svårt, att byta lärosätt(att vi inte programmerade). Jag tror dock att jag lärt mig mycket mer genom denna laborationen än om vi skulle provat programmera allt detta(det hade dessutom tagit mycket längre tid). Vi har dock aldrig gått igenom säkerhet så här invecklat så det var mycket att ta till sig men allt kändes väldigt relevant. Med denna laborationen kunde man också koppla teorin med praktiken och det är alltid ett bra sätt att lära sig på tycker jag!
 Informationen man tagit till sig under denna laborationen tror jag kommer stanna hos mig, och utnyttja, resten utav min karriär som webbprogrammerare.
 
 
 # Referenser
-
 [1] The Open Web Application Security Project, "OWASP Top 10 The ten most critical web application security risks”, s. 8.
 
 [2] The Open Web Application Security Project, "OWASP Periodic Table of Vulnerabilities", Tillgänglig: [Cookie Theft/Session Hijacking](https://www.owasp.org/index.php/OWASP_Periodic_Table_of_Vulnerabilities#Periodic_Table_of_Vulnerabilities).
