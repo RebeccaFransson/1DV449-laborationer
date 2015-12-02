@@ -49,19 +49,20 @@ Eller kommunicera med ett API som ger programmeraren information istället för 
 ### XSS
 _Teori_
 
-Användaren kan skriva in taggar och skadlig kod i applikationen. Detta händer när text eller ett script skickas till applikationen utan att ha validerats ordentligt.
+Användaren kan skriva in taggar och skadlig kod i denna applikationen. Detta händer när text eller ett script skickas till applikationen utan att ha validerats ordentligt. Med andra ord kan en användare skicka in skadlig kod i applikationen.[5]
 
 
 _Konsekvenser_
 
-Användaren kan då manipulera koden och få den att göra något helt annat. Text skriva ut en länk som tar en till en annan sida och samtidigt hijackar dina sessions och samlar din information. Som följd utav detta kan användaren ta kontroll av ditt konto.
+Användaren kan då manipulera koden och få den att göra något helt annat. Text skriva ut en länk som tar en till en annan sida och samtidigt hijackar dina sessions/cookies och samlar din information. Som följd utav detta kan användaren ta kontroll av ditt konto eller i värsta fall hela applikationen.
 
 
 _Åtgärder_
 
-“Validera indata, filtrera utdata” - som Johan sa i sin föreläsning´[]
+“Validera indata, filtrera utdata” - som Johan sa i sin föreläsning.[7]
 När det gäller att bara skriva in taggar så kan man som programmerare göra om taggarna till text så att webbläsaren inte tolkar det som kod.
 Man kan också göra en whitelist - då man bara tilllåter ett visst antal tecken från användaren.
+[6]
 
 # Prestandaproblem
 
@@ -70,7 +71,14 @@ Man kan också göra en whitelist - då man bara tilllåter ett visst antal teck
 # Referenser
 
 [1] OWASP, "OWASP Top 10 The ten most critical web application security risks”, s. 8.
+
 [2] OWASP, "OWASP Periodic Table of Vulnerabilities", Tillgänglig: [Cookie Theft/Session Hijacking](https://www.owasp.org/index.php/OWASP_Periodic_Table_of_Vulnerabilities#Periodic_Table_of_Vulnerabilities).
+
 [3] OWASP, "OWASP Top 10 The ten most critical web application security risks”, s. 7.
-[4] OWASP, "OWASP Periodic Table of Vulnerabilities", Tillgänglig: [Cookie Theft/Session Hijacking](https://www.owasp.org/index.php/OWASP_Periodic_Table_of_Vulnerabilities_-_SQL_Injection)
-[] Johan Leitet Tillgänglig: “[Webbteknik II - HT13 - Webbsäkerhet](https://www.youtube.com/watch?v=Gc_pc9TMEIk)”
+
+[4] OWASP, "OWASP Periodic Table of Vulnerabilities", Tillgänglig: [SQL Injections](https://www.owasp.org/index.php/OWASP_Periodic_Table_of_Vulnerabilities_-_SQL_Injection).
+[5] OWASP, "OWASP Top 10 The ten most critical web application security risks”, s. 9.
+
+[6] OWASP, "OWASP Periodic Table of Vulnerabilities", Tillgänglig: [Cross.Site Scripting](https://www.owasp.org/index.php/OWASP_Periodic_Table_of_Vulnerabilities_-_Cross-Site_Scripting_(XSS)).
+
+[7] Johan Leitet Tillgänglig: “[Webbteknik II - HT13 - Webbsäkerhet](https://www.youtube.com/watch?v=Gc_pc9TMEIk)”.
