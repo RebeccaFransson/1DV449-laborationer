@@ -87,22 +87,21 @@ Det är också viktigt att hasha lösenord innan man lägger in dem i databasen.
 # Prestandaproblem
 
 ### Inline
-Man kan hitta på css och javascript inline i html-koden, det är aldrig bra och mycket lätt att byta ut och lägga i egna filer. Skriver kod och css inline gör bara lata användare.
+Man kan hitta på css och javascript inline i html-koden, det är aldrig bra och mycket lätt att byta ut och lägga i egna filer. Att skriva kod och css inline gör bara lata användare.
 
 ### Script-länkar
-Script-länkar länkas in i headern tillsammans med css-länkarna. Dock borde dessa script-länkarna länkas in i slutet av html-filen.
+Script-länkar länkas in i headern tillsammans med css-länkarna. Dock borde dessa script-länkarna länkas in i slutet av html-filen. Detta för att dem ej skall störa renderingen utav resten av sidan, då all rendering av sidan stannar upp när den laddar igenom ett script.
 
 ### Nytt meddelande
 När ett nytt meddelande skrivs läggs det till i en json-fil. Sedan raderas alla meddelande i messageArea och alla meddelanden i jsonfilen läggs till. Istället kan man koda så att det nya meddelandet läggs till ovan på dem andra, så att applikationen slipper skriva ut alla meddelanden igen.
 
-
+### Kaka fastän användaren ej inloggad
 En kaka skapas när användaren försöker logga in, fast än den inte lyckades.
 
-Tabort-knapp fungerar ej för admin, dock finns koden för funktionen men den används ej.
+### Tabort-knapp
+Tabort-knapp för admin fungerar ej, dock finns koden för funktionen men den används inte.
 
-
-
-Inline scripts förekommer också i html-koden.
+### HTTP
 
 # Egna övergripande reflektioner
 
@@ -131,3 +130,5 @@ tänka på i framtida projekt
 [9] The Open Web Application Security Project, Tillgänglig: “[Improper Filsystem Permissions](https://www.owasp.org/index.php/OWASP_Periodic_Table_of_Vulnerabilities_-_Improper_Filesystem_Permissions).
 
 [10] The Open Web Application Security Project, "OWASP Top 10 The ten most critical web application security risks”, s. 12.
+
+[11] Akamai, Tillgänglig: [Font end optimazation](https://www.akamai.com/us/en/resources/front-end-optimization-feo.jsp)
