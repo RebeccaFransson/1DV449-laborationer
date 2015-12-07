@@ -1,0 +1,13 @@
+#list{
+  border: solid red 6px;
+  width: 400px;
+}
+#list .messages{
+  margin: 10px;
+  padding: 27px;
+  background-color: #F3F3F3;
+}
+#list .messages p{
+  float: right;
+  color: blueviolet;
+}
