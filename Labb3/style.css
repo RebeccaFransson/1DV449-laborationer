@@ -1,13 +1,29 @@
 #list{
   border: solid red 6px;
   width: 400px;
+  height: 500px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
-#list .messages{
+#list .message{
   margin: 10px;
   padding: 27px;
   background-color: #F3F3F3;
+  padding: 10px 40px 0 40px;
 }
-#list .messages p{
+#list .message p{
   float: right;
-  color: blueviolet;
+  color: red;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  color: #1CBF1C;
+  font-size: large;
+  font-family: monospace;
+}
+#map {
+  height: 100%;
 }
