@@ -8,7 +8,7 @@ var APIData = {
             dataType: "json",
             complete: function(data){
                 var parsed = JSON.parse(JSON.stringify(data));
-                var xml = parsedObj.responseText;
+                var xml = parsed.responseText;
                 console.log(xml);
               }
        });
