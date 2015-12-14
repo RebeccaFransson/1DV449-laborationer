@@ -3,9 +3,16 @@
   background-color: black;
 }
 #map{
-  width: 100%;
-  height: 500px;
+  width: 50%;
+  height: 1000px;
+  float: left;
 }
 #list{
   border: green solid 1px;
+  float: right;
+  width: 47%;
+  margin: 20px;
+}
+#list .message{
+  border: red solid 1px;
 }
