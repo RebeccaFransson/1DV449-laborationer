@@ -1,18 +1,58 @@
-#body{
+body{
   width:100%;
-  background-color: black;
+  background-color: #A7C8FD;
+  color: #2B2B2B;
+  font-family: monospace;
+  font-size: large;
+  overflow: hidden;
+}
+#cat{
+  width: 99%;
+  height: 70px;
+  background-color: #9EC2F9;
+  margin-bottom: 10px;
+}
+#cat ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+#cat li {
+    display: block;
+    float: right;
+    padding: 10px;
+    margin: 15px;
+    cursor: pointer;
+}
+#cat li:hover {
+    background-color: #ACCBFB;
 }
 #map{
   width: 50%;
-  height: 1000px;
+  height: 830px;
   float: left;
 }
+.marker{
+  width:200px;
+  min-height:40px;
+}
+.marker p{
+  color: blue;
+}
 #list{
-  border: green solid 1px;
   float: right;
   width: 47%;
+  height: 900px;
   margin: 20px;
+  overflow-y: auto;
+  position: relative;
+  bottom: 20px;
 }
 #list .message{
-  border: red solid 1px;
+    padding: 10px 20px 10px 20px;
+    border-bottom: #9EC2F9 solid;
+}
+#list .message:hover{
+    background-color: #9EC2F9;
+    cursor: pointer;
 }
