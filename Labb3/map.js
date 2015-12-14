@@ -4,73 +4,33 @@ var Map = {
 
   mapStart: function(markers) {
 
+              var mapOptions = {
+                  center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
+                  zoom: 5,
+                  mapTypeId: google.maps.MapTypeId.ROADMAP
+              };
+              var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-    //console.log(markers);
-    /*var myLatlng = {lat: 61.02, lng: 14.38};
+              //Create and open InfoWindow.
+              var infoWindow = new google.maps.InfoWindow();
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 4,
-      center: myLatlng
-    });*/
+              for (var i = 0; i < markers.length; i++) {
+                  var data = markers[i];
+                  var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+                  var marker = new google.maps.Marker({
+                      position: myLatlng,
+                      map: map,
+                      title: data.title
+                  });
 
-    var markers = [
-    ['Bondi Beach', -33.890542, 151.274856],
-    ['Coogee Beach', -33.923036, 151.259052],
-    ['Cronulla Beach', -34.028249, 151.157507],
-    ['Manly Beach', -33.80010128657071, 151.28747820854187],
-    ['Maroubra Beach', -33.950198, 151.259302]
-];
+                  //Attach click event to the marker.
+                  (function (marker, data) {
+                      google.maps.event.addListener(marker, "click", function (e) {
+                          //Wrap the content inside an HTML DIV in order to set height and width of InfoWindow.
+                          infoWindow.setContent("<div style = 'width:200px;min-height:40px'>" + data.description + "</div>");
+                          infoWindow.open(map, marker);
+                      });
+                  })(marker, data);
+              }
 
-
-    var myOptions = {
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        mapTypeControl: false
-    };
-    var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
-    var infowindow = new google.maps.InfoWindow();
-    var marker, i;
-    var bounds = new google.maps.LatLngBounds();
-
-    for (i = 0; i < markers.length; i++) {
-        var pos = new google.maps.LatLng(markers[i][1], markers[i][2]);
-        bounds.extend(pos);
-        marker = new google.maps.Marker({
-            position: pos,
-            map: map
-        });
-        google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-                infowindow.setContent(markers[i][0]);
-                infowindow.open(map, marker);
-            }
-        }
-    })(marker, i));
-    map.fitBounds(bounds);
-
-      /*var marker = new google.maps.Marker({
-              position: myLatlng,
-              map: map,
-              title: 'Click to zoom'
-            });*/
-
-    /*map.addListener('center_changed', function() {
-      // 3 seconds after the center of the map has changed, pan back to the
-      // marker.
-      window.setTimeout(function() {
-        map.panTo(marker.getPosition());
-      }, 3000);
-    });
-
-    marker.addListener('click', function() {
-      map.setZoom(8);
-      map.setCenter(marker.getPosition());
-    });*/
-  },
-
-  createMarker: function(Latlng){
-     new google.maps.Marker({
-            position: Latlng,
-            title: 'Click to zoom'
-          });
-  }
 }

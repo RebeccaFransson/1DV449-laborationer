@@ -31,9 +31,9 @@ var APIData = {
             //var div = document.createElement('div').setAttribute('class', 'message');
             //div.appendChild(title);
             document.querySelector('#list').innerHTML += html;
-            var latlong = {lat: parseInt(latitude.text()), lng: parseInt(longitude.text())};
-            //Map.createMarker(latlong);
-            //mylatlong.push(latlong);
+            var info = {"title": title.text(), "lat": parseInt(latitude.text()), "lng": parseInt(longitude.text()), "description": description.text()};
+            
+            mylatlong.push(info);
         });
 
         Map.mapStart(mylatlong);
