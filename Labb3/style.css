@@ -31,6 +31,7 @@ body{
   width: 50%;
   height: 830px;
   float: left;
+  box-shadow: 3px 5px 20px #72878E;
 }
 .marker{
   width:200px;
@@ -42,17 +43,18 @@ body{
 #list{
   float: right;
   width: 47%;
-  height: 900px;
+  height: 825px;
   margin: 20px;
   overflow-y: auto;
   position: relative;
   bottom: 20px;
 }
-#list .message{
-    padding: 10px 20px 10px 20px;
-    border-bottom: #9EC2F9 solid;
+
+#list h3{
+  padding: 20px 20px 20px 20px;
+  border-bottom: #9EC2F9 solid;
 }
-#list .message:hover{
+#list h3:hover{
     background-color: #9EC2F9;
     cursor: pointer;
 }

@@ -15,20 +15,7 @@ var APIData = {
                 document.getElementById("cat").addEventListener("click", function(e){
                   cat = e.target.id;
                   APIData.response(xml, cat);
-
                 });
-                /*$(xml).find('message').each(function(){
-                  if(cat){
-                    if($(this).children('category').text() == e.target.id){
-                      allArray.push($(this));
-                    }else if($(this)){
-                      allArray.push($(this))
-                    }
-                  }else{
-                    allArray.push($(this))
-                  }
-                });*/
-
                 APIData.response(xml, cat);
               }
        });
@@ -36,41 +23,51 @@ var APIData = {
 
   response: function(data, cat){
     document.querySelector('#list').innerHTML = '';
-    var allData = Array();
-
+    var markerData = Array();
+    var unorganisedData = Array();
     $(data).find('message').each(function(){
-      if($(this).children('category').text() == cat){
-        console.log('cat vald'+cat);
+      if(cat == undefined || cat == null || cat == 4){
+        unorganisedData.push($(this));
+      }else{
+        if($(this).children('category').text() == cat){
+          unorganisedData.push($(this));
+        }
       }
-      //TODO: skriv ut de valda kategorierna
-            var title = $(this).children('title').text();
-            var subCategory = $(this).children('subcategory');
-            var description = $(this).children('description').text();
-            var latitude = parseInt($(this).children('latitude').text());
-            var longitude = parseInt($(this).children('longitude').text());
-            var date = $(this).children('createddate').text().slice(0, 10);
+      });
 
-            if(!description){
-              description = 'Ingen beskrivning';
-            }
-            var html = '<div class="message"><h3>' + title + '</h3>'+date+'</div>';
-            //var tit = document.createElement('h3').appendChild(document.createTextNode(title.text()));
-            //var cat = document.createElement('p').appendChild(document.createTextNode(subCategory.text()));
-            //var des = document.createElement('p').appendChild(document.createTextNode(description.text()));
-            //var div = document.createElement('div').setAttribute('class', 'message');
-            //div.appendChild(title);
-            document.querySelector('#list').innerHTML += html;
-            var info = {"title": title,
-                        "lat": latitude,
-                        "lng": longitude,
-                        "description": description,
-                        "subcategory": subCategory,
-                        "date": date};
+        for(var i = 0; i < unorganisedData.length; i++){
+          var title = unorganisedData[i].children('title').text();
+          var subCategory = unorganisedData[i].children('subcategory');
+          var description = unorganisedData[i].children('description').text();
+          var latitude = parseFloat(unorganisedData[i].children('latitude').text());
+          var longitude = parseFloat(unorganisedData[i].children('longitude').text());
+          var date = unorganisedData[i].children('createddate').text();//.slice(0, 10)
 
-            allData.push(info);
-        });
+          if(!description){
+            description = 'Ingen beskrivning';
+          }
+          var marker = {"title": title,
+                      "lat": latitude,
+                      "lng": longitude,
+                      "description": description,
+                      "subcategory": subCategory,
+                      "date": date};
 
-        Map.mapStart(allData);
+          markerData.push(marker);
+        }
+
+        if(unorganisedData.length == 0){
+          document.querySelector('#list').innerHTML = '<div class="message"><h3>Ingen händelse inom denna kategori</div>';
+          Map.emptyMap();
+        }else{
+          markerData.sort(function(a,b){
+            return new Date(b.date).getTime() - new Date(a.date).getTime();
+          });
+          for (var i = 0; i < markerData.length; i++) {
+            document.querySelector('#list').innerHTML += '<h3 class="message">' + markerData[i].title + '</h3>';
+          }
+          Map.mapStart(markerData);
+        }
   }
 
 }
