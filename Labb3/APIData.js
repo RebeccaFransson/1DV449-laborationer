@@ -50,7 +50,7 @@ var APIData = {
                       "lat": latitude,
                       "lng": longitude,
                       "description": description,
-                      "subcategory": subCategory,
+                      "subcategory": subCategory.text(),
                       "date": date};
 
           markerData.push(marker);
