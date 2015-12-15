@@ -2,28 +2,30 @@
 var APIData = {
 
   APIDataStart: function(){
+    Map.makeMap();
     $.ajax({
             type: 'GET',
-            url: "http://api.sr.se/api/v2/traffic/messages?format=json&pagination=false",//?pagination=false
+            url: "http://api.sr.se/api/v2/traffic/messages?format=json&pagination=false",//
             dataType: "json",
             complete: function(data){
+              if(data.status == 200){
                 var parsedData = JSON.parse(data.responseText);
 
-                var storage = localStorage['storage'];
-                storage = xml;
+                //har vi internet?
+                if(!localStorage.getItem('storage')){//inget cashat
+                  localStorage.setItem('storage', JSON.stringify({savedData: parsedData, timestamp: (new Date().getTime()+900000)}));
+                }else{//finns något cashat
+                  var parsedStoredTime = JSON.parse(localStorage.getItem('storage')).timestamp;
 
-                if(storage){
-                  console.log(storage);
+                  if(parsedStoredTime < (new Date().getTime())){
+                    localStorage.setItem('storage', JSON.stringify({savedData: parsedData, timestamp: (new Date().getTime()+900000)}));
+                  }
                 }
-                //är informationen redan sparad?
-                //kolla om den är för gammal
-                //spara till storage
-                if(data.status == 200){
-                  document.getElementById("cat").addEventListener("click", function(e){
-                    APIData.response(parsedData, e.target.id);
-                  });
-                  APIData.response(parsedData, null);
-                }
+                document.getElementById("cat").addEventListener("click", function(e){
+                  APIData.response(JSON.parse(localStorage.getItem('storage')).savedData, e.target.id);
+                });
+                APIData.response(JSON.parse(localStorage.getItem('storage')).savedData, null);
+              }
               }
        });
   },
@@ -45,7 +47,6 @@ var APIData = {
     }
       if(unorganisedData.length == 0){
         document.querySelector('#list').innerHTML = '<div class="message"><h3>Ingen händelse inom denna kategori</h3></div>';
-        Map.emptyMap();
       }else{
         markerData.sort(function(a,b){
           return new Date(b.date).getTime() - new Date(a.date).getTime();
@@ -53,8 +54,8 @@ var APIData = {
         for (var i = 0; i < unorganisedData.length; i++) {
           document.querySelector('#list').innerHTML += '<h3 class="message">' + unorganisedData[i].title + '</h3>';//flytta upp
         }
-        Map.mapStart(unorganisedData);
       }
+      Map.mapStart(unorganisedData);
   }
 }
 
