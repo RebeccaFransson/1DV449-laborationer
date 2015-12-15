@@ -4,72 +4,58 @@ var APIData = {
   APIDataStart: function(){
     $.ajax({
             type: 'GET',
-            url: "http://api.sr.se/api/v2/traffic/messages",
+            url: "http://api.sr.se/api/v2/traffic/messages?format=json&pagination=false",//?pagination=false
             dataType: "json",
             complete: function(data){
-                var parsed = JSON.parse(JSON.stringify(data));
-                var xml = parsed.responseText;
-                var catArray = Array();
-                var allArray = Array();
-                var cat;
-                document.getElementById("cat").addEventListener("click", function(e){
-                  cat = e.target.id;
-                  APIData.response(xml, cat);
-                });
-                APIData.response(xml, cat);
+                var parsedData = JSON.parse(data.responseText);
+
+                var storage = localStorage['storage'];
+                storage = xml;
+
+                if(storage){
+                  console.log(storage);
+                }
+                //är informationen redan sparad?
+                //kolla om den är för gammal
+                //spara till storage
+                if(data.status == 200){
+                  document.getElementById("cat").addEventListener("click", function(e){
+                    APIData.response(parsedData, e.target.id);
+                  });
+                  APIData.response(parsedData, null);
+                }
               }
        });
   },
 
   response: function(data, cat){
     document.querySelector('#list').innerHTML = '';
-    var markerData = Array();
-    var unorganisedData = Array();
-    $(data).find('message').each(function(){
-      if(cat == undefined || cat == null || cat == 4){
-        unorganisedData.push($(this));
+    var markerData = Array(), unorganisedData = Array();
+    for (var i = 0; i < data.messages.length; i++) {
+      if(!data.messages[i].description){
+        data.messages[i].description = 'Ingen beskrivning';
+      }
+      if(cat == null || cat == 4){
+        unorganisedData.push(data.messages[i]);
       }else{
-        if($(this).children('category').text() == cat){
-          unorganisedData.push($(this));
+        if(data.messages[i].category == cat){
+          unorganisedData.push(data.messages[i]);
         }
       }
-      });
-
-        for(var i = 0; i < unorganisedData.length; i++){
-          var title = unorganisedData[i].children('title').text();
-          var subCategory = unorganisedData[i].children('subcategory');
-          var description = unorganisedData[i].children('description').text();
-          var latitude = parseFloat(unorganisedData[i].children('latitude').text());
-          var longitude = parseFloat(unorganisedData[i].children('longitude').text());
-          var date = unorganisedData[i].children('createddate').text();//.slice(0, 10)
-
-          if(!description){
-            description = 'Ingen beskrivning';
-          }
-          var marker = {"title": title,
-                      "lat": latitude,
-                      "lng": longitude,
-                      "description": description,
-                      "subcategory": subCategory.text(),
-                      "date": date};
-
-          markerData.push(marker);
+    }
+      if(unorganisedData.length == 0){
+        document.querySelector('#list').innerHTML = '<div class="message"><h3>Ingen händelse inom denna kategori</h3></div>';
+        Map.emptyMap();
+      }else{
+        markerData.sort(function(a,b){
+          return new Date(b.date).getTime() - new Date(a.date).getTime();
+        });
+        for (var i = 0; i < unorganisedData.length; i++) {
+          document.querySelector('#list').innerHTML += '<h3 class="message">' + unorganisedData[i].title + '</h3>';//flytta upp
         }
-
-        if(unorganisedData.length == 0){
-          document.querySelector('#list').innerHTML = '<div class="message"><h3>Ingen händelse inom denna kategori</div>';
-          Map.emptyMap();
-        }else{
-          markerData.sort(function(a,b){
-            return new Date(b.date).getTime() - new Date(a.date).getTime();
-          });
-          for (var i = 0; i < markerData.length; i++) {
-            document.querySelector('#list').innerHTML += '<h3 class="message">' + markerData[i].title + '</h3>';
-          }
-          Map.mapStart(markerData);
-        }
+        Map.mapStart(unorganisedData);
+      }
   }
-
 }
 
 window.onload = APIData.APIDataStart;

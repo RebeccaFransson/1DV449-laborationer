@@ -8,9 +8,11 @@ var Map = {
     var infoWindow = new google.maps.InfoWindow();
     var bounds = new google.maps.LatLngBounds();
     var markers = Array();
+
     for (var i = 0; i < markersInfo.length; i++) {
         var data = markersInfo[i];
-        var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+        console.log(data);
+        var myLatlng = new google.maps.LatLng(data.latitude, data.longitude);
         bounds.extend(myLatlng);
         var marker = new google.maps.Marker({
             position: myLatlng,
@@ -43,7 +45,7 @@ var Map = {
   },
 
   emptyMap: function(){
-    map = new google.maps.Map(document.getElementById('map'), {
+    var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 61.02, lng: 14.38},
       zoom: 5
     });
