@@ -2,7 +2,8 @@
 Man måste alltid hålla sig uppdaterad om några förändringar kommer upp i framtiden. Tillexempel om något i json-objektet skulle byta namn. Eller någon metod i google apiet skulle ändras.
 
 ### Hur och hur länga cachar du ditt data för att slippa anropa API:erna i onödan?
-Jag har valt att cacha min data i 15 minuter. Dock har jag funderat på att det borde finnas en refrash-knapp. Så om användaren skulle till tunnelbanan kan de välja att göra en uppdatering precis innan de går offline. Denna iden blev dock aldrig av pga tidsbrist.
+Jag har valt att cacha min data i 15 minuter. Dock har jag funderat på att det borde finnas en refrash-knapp. Så om användaren skulle till tunnelbanan kan de välja att göra en uppdatering precis innan de går offline. Denna idén blev dock aldrig av pga tidsbrist.
+Jag har valt att chacha datan i localstorage då det var smidigast och det varar längre än sessionStorage(som bara sprar data tills fliken stängs ned).
 
 ### Vad finns det för risker kring säkerhet och stabilitet i din applikation?
 Min appliaktion använder sig inte utav någon känslig information. Därför ser jag inga säkerhets risker i min applikation. Det finns inte heller några input-rutor där xss kan ske. Som sagt hanteras ingen känsligdata i applikationen och jag ser ingen anleding till att någon skulle vilja hacka den, det vorde enklare för dem att göra en egen appliktion.
