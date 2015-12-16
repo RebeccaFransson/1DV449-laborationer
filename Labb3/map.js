@@ -7,7 +7,7 @@ var Map = {
   makeMap: function(){
     Map.globalMap = new google.maps.Map(document.getElementById("map"), {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
-      center: {lat: 61.02, lng: 14.38},
+      center: {lat: 63.02, lng: 14.38},
       zoom: 5});
   },
 
@@ -20,13 +20,10 @@ var Map = {
     Map.globalMarkers = [];
 
     var infoWindow = new google.maps.InfoWindow();
-    var bounds = new google.maps.LatLngBounds();
-    //var markers = Array();
 
     for (var i = 0; i < markersInfo.length; i++) {
         var data = markersInfo[i];
         var myLatlng = new google.maps.LatLng(data.latitude, data.longitude);
-        bounds.extend(myLatlng);
         var marker = new google.maps.Marker({
             position: myLatlng,
             map: Map.globalMap,
@@ -44,7 +41,6 @@ var Map = {
               infoWindow.open(Map.globalMap, marker);
             });
         })(marker, data);
-         Map.globalMap.fitBounds(bounds);
     }
 
     document.getElementById("list").addEventListener("click", function(e){
