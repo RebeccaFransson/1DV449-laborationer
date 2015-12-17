@@ -11,3 +11,4 @@ På andra halvan utav webbfönstret skulle det presenteras de socialamedier där
 Min plan är att använda mig utav javascript på klienten och node.js på servern.
 
 Tillexempel på socialamedier är flickr, instagram eller twitter.
+https://api.spotify.com/v1/users/username
