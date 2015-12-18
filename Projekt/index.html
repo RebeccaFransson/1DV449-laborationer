@@ -9,10 +9,15 @@
   <body>
     <div id="wrapper">
       <div id="media">
-        <input type="radio" value="Spotify" checked>Spotify
+        <form>
+          <input type="checkbox" value="Spotify">Spotify
+          <input type="text" name="InputName">
+          <input TYPE="button" name="button" Value="Send" onClick="testResults(this.form)">
+        </form>
       </div>
       <div id="result"></div>
     </div>
-    <script type="text/javascript" src="javascript/rename.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="rename.js"></script>
   </body>
 </html>

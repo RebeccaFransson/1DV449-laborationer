@@ -12,3 +12,4 @@ Min plan är att använda mig utav javascript på klienten och node.js på serve
 
 Tillexempel på socialamedier är flickr, instagram eller twitter.
 https://api.spotify.com/v1/users/username
+https://apps.twitter.com/app/9246362/keys
