@@ -10,14 +10,18 @@
     <div id="wrapper">
       <div id="media">
         <form>
-          <input type="checkbox" value="Spotify">Spotify
-          <input type="text" name="InputName">
-          <input TYPE="button" name="button" Value="Send" onClick="testResults(this.form)">
+          <input type="checkbox" id="Spotify" value="Spotify">
+          <label for="Spotify"><span></span>Spotify</label>
+          <input id="inputname" type="text" name="InputName">
+          <input id="button" type="button" name="button" value="Send" onClick="searchResults(this.form)">
         </form>
       </div>
-      <div id="result"></div>
+      <div id="result">
+        <div id="available"></div>
+        <div id="occupied"></div>
+      </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src="rename.js"></script>
+    <script type="text/javascript" src="index.js"></script>
   </body>
 </html>

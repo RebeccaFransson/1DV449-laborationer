@@ -1,0 +1,35 @@
+#wrapper{
+
+}
+#media{
+  background-image: url("symphony.png");
+  min-height: 500px;
+}
+#media form{
+  border: black solid;
+  width: 400px;
+  margin: auto;
+  position: relative;
+  top: 130px;
+  font-size: 24px;
+  color: #6D6D6D;
+}
+#media form #inputname{
+  border: none;
+  background-color: rgba(212, 210, 210, 0.25);
+  width: 400px;
+  height: 60px;
+  font-size: 55px;
+  color: #6D6D6D;
+  text-align: center;
+  border-bottom: #6D6D6D dotted 4px;
+}
+#available, #occupied{
+  width: 100%;
+}
+#result #occupied{
+  background-color: #FFA280;
+}
+#result #available{
+  background-color: #A1FF80;
+}
