@@ -27,9 +27,14 @@
 #available, #occupied{
   width: 100%;
 }
-#result #occupied{
+#result .occupied{
   background-color: #FFA280;
 }
-#result #available{
+#result .available{
   background-color: #A1FF80;
+}
+#result li {
+  background-color: aquamarine;
+  width: 94%;
+  list-style: none;
 }

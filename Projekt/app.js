@@ -7,47 +7,33 @@
   var request = require('request');
   var io = require('socket.io')(http);
 
-  /*var tumblr = require('tumblr');
-  var oauth = {
-    consumer_key: 'avwTdMYR35LgQzXppcZ5CwDaw0kk7Tkl2dW32o2iAJDVjNeiNA',
-    consumer_secret: '4ZrZHwyRB9MN6lMbPEQtUQZ0zq0pjqFysgWAc4vYfZDDnr7ITf',
-    token: 'sCLnwPeYuryE4t1bjORd8KvVMUkE3EWQnKeGgm3sDeVZwKe9fM',
-    token_secret: 'bn50egKvgSuUy3SdxctOETXcOoGyPbaYvxoOpzZCp8eVTfc5Pq'
-  };
-
-  var user = new tumblr.User(oauth);
-
-  user.info(function(error, response) {
-    if (error) {
-      throw new Error(error);
-    }
-
-    console.log(response.user);
-  });*/
-
-    /*var T = new Twit({
-    consumer_key:         'iK4ua1CRwXVjDUgxC13Q0pBnE',
-    consumer_secret:      'VYAbXKA7ff13WXmzzFKrwzEWKxuQmt2MJY7EYfxbIHyCQSF73x'
-})*/
-
   io.on('connection', function(socket){
-    var answers = [];
-    socket.on('newSearch', function(msg){
-      console.log('message: ' + msg);
-      request('https://api.spotify.com/v1/users/'+msg, function (error, response, answer) {
+    var available = [];
+    var occupied = [];
+    socket.on('newSearch', function(name){
+      request('https://api.spotify.com/v1/users/'+name, function (error, response, answer) {
         if (!error && response.statusCode == 200) {
-          console.log(answer);
-          answers.push(JSON.parse(answer));
-          //io.emit('searchAnswers', JSON.parse(answer));
+          var user = JSON.parse(answer);
+          if(user.display_name == null){
+            user = {from: 'Spotify', name: null}
+          }else{
+            user = {from: 'Spotify', name: user.display_name, url: user.external_urls.spotify};
+          }
+          io.emit('newAnswer', user);
         }
       });
-      request('https://api.tumblr.com/v2/blog/'+msg+'.tumblr.com/info?api_key=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4', function (error, response, answer) {
-      if (!error && response.statusCode == 200) {
-        console.log(answer);
-        answers.push(JSON.parse(answer));
-      }
+      request('https://api.tumblr.com/v2/blog/'+name+'.tumblr.com/info?api_key=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4', function (error, response, answer) {
+        var user = JSON.parse(answer);
+        console.log('hej');
+        if (!error && response.statusCode == 200) {
+          user = {from: 'tumblr', name: user.response.blog.name, url: user.response.blog.url};
+        }else{
+          user = {from: 'tumblr', name: null}
+        }
+        io.emit('newAnswer', user);
     });
-    io.emit('searchAnswers', answers);
+
+
     });
   });
 
