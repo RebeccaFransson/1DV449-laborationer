@@ -3,29 +3,29 @@ _rf222cz_
 
 
 # Säkerhetsproblem
-### Känslig data exponering, CSRF
+### CSRF
 _Teori_
-
-I denna applikationen kan användaren komma åt sin kaka och ändra den. Detta beror på att den är sparad eller sänd på ett osäkert sätt.
-Kakan förstörs inte när användaren har loggat ut.
-
+I denna applikationen kan en icke befogande användare göra en http request från en annan webbplats och använda sig utav den inloggade användarens kaka för att identifiera sig som en inloggad användare. Detta kallas CSRF.
+CSRF kan gå till så att en icke befogande användare använder sig utav en tredje-part webbplats(tex en chatt) för att lura en användare att klicka på tex en bild som innehåller elaka requests till andra webbplatser. [1] [2]
 
 _Konsekvenser_
-
-Den icke befogade användaren kan komma åt konton genom att ändra sin kaka och på så sätt låtsas vara någon den inte är och ta reda på personlig information om den användaren den har "hijacked".
-På grund av att kakan ej förstörs vid utloggning kan den icke befogande användare komma åt kakan/sessionen och fortsätta vara inloggad, fast användaren som kakan tillhör har loggat ut.
-När den icke befogade användaren fått tag på en kaka kan denna också komma åt meddelanden genom att skriva /messages i urlen.[1]
-
+Eftersom dessa request skickas från användaren webbläsare kan den ickebefogade användaren komma åt tex användaren kaka som är sparad i webbläsaren. På så sätt kan den ickebefogande användaren göra request med en annan identitet.
+Dessa requesten kan tex ändra användaren personliga information på en inloggnings-sida eller (med en osäker bank-sida) göra request att över pengar till den icke befogande användaren.[1] [2]
 
 _Åtgärder_
+CSRF-attacker skyddar man sin webbplats mot genom att använda ett "syncronized token pattern".
+Detta mönsker går till så att man skickar med ett token som skickas med vid en ny request(tex ett formlär), på så sätt kan man se att requestet faktiskt kommer från den rätta webbplatsen och inte ett elakt request från en annan webbplats.[1] [2]
 
-Man borde istället använda sig utav SSL på alla autentisierings sidor, så att en icke befogad användare inte kan stjäla en annan användares kaka.
-Man borde också använda sig utav HTTPS. [10]
-Och se till att kakans identifierare sänds med ett krypterat protokoll!
-För att se till att en icke befogad användare inte skall kunna låtsas vara någon annan borde man skicka ett token med sin kaka.
-Då kan man inte längre lura webbläsaren då den frågar efter ett unikt token.
-Skriv kod så att kakan förstörs vid utlogging. [1] [2]
+### Kakan förstörs ej vid utlogging
+_Teori_
+Kakan förstörs inte när användaren har loggat ut, detta gör att en icke befogad användare har längre tid på sig att hijacka en användaren.
 
+_Konsekvenser_
+På grund av att kakan ej förstörs vid utloggning kan en icke befogande användare som har kommit åt kakan genom tex en CSRF-attack fortsätta vara inloggad, fast användaren som kakan tillhör har loggat ut.
+När den icke befogade användaren fått tag på en kaka kan denna också komma åt meddelanden genom att skriva /messages i urlen.[1]
+
+_Åtgärder_
+Skriv kod så att kakan förstörs vid utlogging.
 
 ### Sql-injections
 _Teori_
@@ -116,7 +116,6 @@ Det är alldeles för många app_moduler som finns i applikationen som inte anv�
 ### Laborationen
 Laborationen har varit rolig och lärorik. Det var skönt men samtidigt svårt att byta lärosätt(att inte programmera). Jag tror dock att jag lärt mig mycket mer genom denna laborationen än om vi skulle provat programmera allt detta. Det hade dessutom tagit mycket längre tid. Vi har dock aldrig gått igenom säkerhet så här detaljerat så det var mycket att ta till sig. Med denna laborationen kunde jag också koppla teorin till praktiken och det är alltid ett bra sätt att lära sig på tycker jag!
 Informationen jag tagit till sig under denna laborationen kommer jag att ha stor glädje av resten utav min karriär som webbprogrammerare. Säkerheten är livsviktig för en hållbar applikation!
-Dock något oklara instruktioner till uppgiften!
 
 
 # Referenser / källa
