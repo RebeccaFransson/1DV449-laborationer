@@ -5,8 +5,9 @@ var start = {
   users: [],
   start: function(){
     socket.on('newAnswer', function(user){
+    console.log(user);
       start.users.push(user);
-      if(start.users.length >= 2){//antalet apier som används
+      if(start.users.length >= 3){//antalet apier som används
         console.log(start.users);
         for (var i = 0; i < start.users.length; i++) {
           var li = document.createElement("li");
