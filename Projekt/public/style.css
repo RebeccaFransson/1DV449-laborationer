@@ -1,12 +1,12 @@
-#wrapper{
-
+BODY{
+    font-family: sans-serif;
+    background-color: #8C8C8C;
 }
 #media{
   background-image: url("symphony.png");
   min-height: 500px;
 }
 #media form{
-  border: black solid;
   width: 400px;
   margin: auto;
   position: relative;
@@ -24,17 +24,47 @@
   text-align: center;
   border-bottom: #6D6D6D dotted 4px;
 }
-#available, #occupied{
+#media #button{
   width: 100%;
+  font-size: 30px;
+  text-align: center;
+  background: none;
+  border: none;
 }
-#result .occupied{
-  background-color: #FFA280;
+#media #button:hover{
+    background-color: rgba(236, 235, 235, 0.52);
 }
-#result .available{
-  background-color: #A1FF80;
+#result ul{
+  width: 80%;
+  margin: auto;
+}
+#result li{
+  width: 100%;
+  height: 70px;
+  border-bottom: solid #6F6F6F 2px;
+  padding-top: 25px;
+}
+#result p{
+  padding: 10px 0 0 20px;
+  float: left;
+}
+#result h2{
+  font-size: 3em;
+  margin: 0;
+  padding-left: 20px;
+  float: left;
+}
+#result .occupied {
+  border-bottom: solid #6F6F6F 2px;
+  color:white;
+}
+#result .occupied a{
+  color: wheat;
+}
+#result .available h2{
+  color: #A1FF80;
 }
 #result li {
-  background-color: aquamarine;
   width: 94%;
   list-style: none;
 }
