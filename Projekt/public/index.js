@@ -1,9 +1,10 @@
 "use strict";
-var socket = io();
+
 
 var start = {
   users: [],
   start: function(){
+/*
     socket.on('newAnswer', function(user){
     console.log(user);
       start.users.push(user);
@@ -13,13 +14,22 @@ var start = {
         start.outputResult(start.users.sort());
       }
     });
-
+*/
   },
 
   inputResults: function(form){
+    $.ajax({
+      type: 'GET',
+      data: form.InputName.value,
+      url: 'http://localhost:8080/inputname',
+          success: function(data) {
+              console.log('success');
+              data.sort(function(a,b){return a.hasname-b.hasname});
+              start.outputResult(data.sort());
+          }
+    });
     start.users = [];
     document.querySelector("#result").querySelector("ul").innerHTML = "";
-    socket.emit('newSearch', form.InputName.value);
   },
 
   outputResult: function(outputArray){
@@ -37,7 +47,7 @@ var start = {
       }else{
         h3.appendChild(document.createTextNode(outputArray[i].from));
         var a = document.createElement("a");
-        a.setAttribute("href", start.users[i].url);
+        a.setAttribute("href", outputArray[i].url);
         a.appendChild(document.createTextNode(outputArray[i].url));
         p.appendChild(a);
         li.appendChild(h3);
