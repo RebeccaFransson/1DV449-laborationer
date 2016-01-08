@@ -3,10 +3,17 @@
 var start = {
   url: 'http://localhost:8080',
   inputResults: function(form){
+    var err = document.querySelector('#error');
     var name = form.InputName.value;
     if(!start.isEmptyBlank(name)){
-      name = (start.containWhitespace(name)) ? start.capitalize(name).replace(/\s/g, '') : name; //Om den innehåller space, tabort dem
-      document.querySelector('#inputname').value = '';
+      //name = (start.containWhitespace(name)) ? start.capitalize(name).replace(/\s/g, '')  : name; //Om den innehåller space, tabort dem
+      if(start.containWhitespace(name)){
+        console.log(err);
+        name = start.capitalize(name).replace(/\s/g, '');
+        err.textContent = 'White-spaces is not allowed, i put in together for you';
+        err.style.border = '1px rgba(255, 244, 0, 0.49) solid';
+      }
+      document.querySelector('#inputname').value = name;
       document.querySelector('#name').textContent = name;
       console.log('skickas t server '+name);
       $.ajax({
@@ -20,7 +27,7 @@ var start = {
       });
       document.querySelector('#result').querySelector('ul').textContent = '';
     }else{
-      var err = document.querySelector('#error');
+
       err.textContent = 'Please write a username that you wanna search';
       err.style.border = '1px rgba(255, 0, 0, 0.49) solid';
     }

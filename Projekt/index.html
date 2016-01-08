@@ -2,22 +2,24 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link href='https://fonts.googleapis.com/css?family=Damion' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="offline/offline-language-english-indicator.css">
     <link rel="stylesheet" type="text/css" href="offline/offline-language-english.css">
     <link rel="stylesheet" type="text/css" href="offline/offline-theme-dark.css">
-    <title>Laboration3</title>
+    <title>IsItAvailable</title>
   </head>
   <body>
     <div id="wrapper">
+      <div id="top"><div id="logo"></div><h1>IsIt Available</h1> <p>Try if your future username is available</p></div>
       <div id="media">
         <form>
-          <label for="Spotify"><span></span>Spotify</label>
           <input id="inputname" type="text" name="InputName" required>
           <input id="button" type="button" name="button" value="Send" onClick="start.inputResults(this.form)">
           <div id="error"></div>
+          <div id="name"></div>
         </form>
-        <div id="name"></div>
+
       </div>
       <div id="result">
         <ul>
