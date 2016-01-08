@@ -24,7 +24,7 @@
     Promise.all([getAPI.twitter(req._parsedOriginalUrl.query),
                 getAPI.spotify(req._parsedOriginalUrl.query),
                 getAPI.tumblr(req._parsedOriginalUrl.query)]).then(function(data){
-      console.log(data);
+       res.send(data);
     })
   });
 
