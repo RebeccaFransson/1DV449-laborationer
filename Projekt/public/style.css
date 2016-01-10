@@ -16,7 +16,7 @@ BODY{
   position: relative;
   top: 37px;
   left: 57px;
-  font-size: 29px;
+  font-size: 2vw;
 }
 #logo {
   float: left;
@@ -27,14 +27,14 @@ BODY{
   height: 105px;
 }
 #media{
-  background-color: cadetblue;
-  min-height: 500px;
+  background-color: #68BDFE;
+  min-height: 445px;
 }
 #media form{
   width: 700px;
   margin: auto;
   position: relative;
-  top: 130px;
+  top: 100px;
   font-size: 24px;
   color: white;
 }
@@ -48,45 +48,51 @@ BODY{
   text-align: center;
   border-bottom: rgba(0, 0, 0, 0.24) dotted 2px;
   background-color: rgba(212, 210, 210, 0.25);
-  /*
-  background: -moz-linear-gradient(top, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 51%, rgba(255,255,255,0.2) 98%, rgba(255,255,255,0.2) 99%);
-  background: -webkit-linear-gradient(top, rgba(255,255,255,0) 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0.2) 98%,rgba(255,255,255,0.2) 99%);
-  background: linear-gradient(to bottom, rgba(255,255,255,0) 50%,rgba(255,255,255,0) 51%,rgba(255,255,255,0.2) 98%,rgba(255,255,255,0.2) 99%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#33ffffff',GradientType=0 );
-  */
 }
+#media form #inputname input[placeholder]{
+color:white;
+}
+
 #media #button{
-  width: 100%;
+  float: right;
+  margin: 10px 30px;
   font-size: 30px;
   text-align: center;
-  background: none;
   border: none;
-  color: white;
-  text-shadow: 2px 1px #6B6B6B;
+  color: #BFDA01;
+  box-shadow: 3px 3px 2px rgba(150, 150, 150, 1);
+  color: #68BDFE;
+  font-weight: 700;
+  background-color: #FFFFFF;
+  border-radius: 4px;
 }
 #media #button:hover{
-    text-shadow: 0px 0px #6B6B6B;
+    box-shadow: 1px 1px 2px rgba(150, 150, 150, 1);
 }
 
 
 /*VALIDERING*/
 #error{
-  background-color: rgba(0, 0, 0, 0.24);
-  border-radius: 10px 10px;
-  width: 100%;
   text-align: center;
-  font-size: 18px;
-  color: black;
+  font-size: 24px;
+  color: #505050;
   margin-top: 10px;
-  padding: 2px;
 }
 #name{
-  font-size: 55px;
+  font-size: 70px;
   text-align: center;
   margin-top: 70px;
 }
 
 /*RESULT*/
+#result img{
+  width: 200px;
+  margin: auto;
+  display: table;
+  position: relative;
+  bottom: 52px;
+  z-index: -1;
+}
 #result ul{
   width: 80%;
   margin: auto;
@@ -98,10 +104,27 @@ BODY{
   padding-top: 25px;
 }
 #result p{
+  font-size: 21px;
   padding: 10px 0 0 20px;
   float: left;
 }
+#result a{
+  float:right;
+  font-size: 21px;
+  padding: 10px;
+  margin: 20px;
+  text-decoration: none;
+  box-shadow: 3px 3px 2px rgba(150, 150, 150, 1);
+  color: #68BDFE;
+  font-weight: 700;
+  background-color: #FFFFFF;
+  border-radius: 4px;
+}
+#result a:hover{
+  box-shadow: 1px 1px 2px rgba(150, 150, 150, 1);
+}
 #result h2{
+  padding: 8px;
   font-size: 3em;
   margin: 0;
   padding-left: 20px;
@@ -109,13 +132,19 @@ BODY{
 }
 #result .occupied {
   border-bottom: solid #6F6F6F 2px;
-  color:white;
+  color:#BB3D8E;
+}
+#result .occupied p{
+  color:black;
 }
 #result .occupied a{
-  color: wheat;
+  color: #FF8E04;
 }
 #result .available h2{
-  color: #A1FF80;
+  color: #68BB2B;
+}
+#result .errorServer{
+  color: #FF2100;
 }
 #result li {
   width: 94%;
