@@ -81,7 +81,8 @@ color:white;
 #name{
   font-size: 70px;
   text-align: center;
-  margin-top: 70px;
+  position: relative;
+  top: 49px;
 }
 
 /*RESULT*/

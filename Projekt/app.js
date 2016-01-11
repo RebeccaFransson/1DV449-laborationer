@@ -21,11 +21,12 @@
   });
 
   app.get('/inputName', function(req, res){
-    Promise.all([getAPI.twitter(req._parsedOriginalUrl.query),
-                getAPI.spotify(req._parsedOriginalUrl.query),
-                getAPI.tumblr(req._parsedOriginalUrl.query)]).then(function(data){
-                  setTimeout(function(){res.send(data); }, 5000);
-
+    var name = req._parsedOriginalUrl.query;
+    Promise.all([getAPI.twitter(name),
+                getAPI.spotify(name),
+                getAPI.tumblr(name)]).then(function(data){
+                  //setTimeout(function(){res.send(JSON.stringify(data)); }, 4000);
+                  res.send(JSON.stringify(data));
     })
   });
 
@@ -51,7 +52,7 @@
       return new Promise(function(resolve, reject) {
         request('https://api.spotify.com/v1/users/'+name, function (error, response, answer) {
           console.log('spotyfi:');
-          console.log(response.statusCode);
+          console.log(answer);
           if (!error && response.statusCode == 200) {
             var userInfo = JSON.parse(answer);
             console.log(userInfo);
@@ -87,6 +88,6 @@
     }
 };
 
-  http.listen(8080, function () {
-    console.log('Example app listening at port 8080');
+  http.listen(8000, function () {
+    console.log('Example app listening at port 8000');
   });

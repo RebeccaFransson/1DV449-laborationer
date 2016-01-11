@@ -1,7 +1,7 @@
 'use strict';
 
 var start = {
-  url: 'http://localhost:8080',
+  url: 'http://localhost:8000',
 
   //skapa en funtion som är onload och kollar om något finns i localstorage och skriver ut det
   start: function(){
@@ -25,9 +25,9 @@ var start = {
     var err = document.querySelector('#error');
     var input = document.querySelector('#inputname');
     var ul = document.querySelector('#result').querySelector('ul');
-
-    err.textContent = '';
     var name = form.InputName.value;
+    err.textContent = '';
+
     if(!start.isEmptyBlank(name)){
       if(start.strip(name) != name){
         err.textContent = 'Your username contains invalid characters, try again';
@@ -40,26 +40,24 @@ var start = {
         }
         document.querySelector('#name').textContent = name;
         ul.textContent = '';
-        console.log('skriv ut laddning');
         var li = document.createElement('li'), img = document.createElement('img');
         img.setAttribute('src', 'loader.gif');
         li.appendChild(img);
         ul.appendChild(li);
 
-        console.log(ul);
         $.ajax({
           type: 'GET',
           data: name,
           url: start.url+'/inputname',
               success: function(data) {
-                  data.sort(function(a,b){return a.hasname-b.hasname});
-                  start.outputResult(data.sort());
-                  //spara till localstorage
-                  localStorage.setItem('search', JSON.stringify(data));
-                  localStorage.setItem('name', JSON.stringify(name));
+                data = JSON.parse(data);
+                data.sort(function(a,b){return a.hasname-b.hasname});
+                start.outputResult(data);
+                //spara till localstorage
+                localStorage.setItem('search', JSON.stringify(data));
+                localStorage.setItem('name', JSON.stringify(name));
               }
         });
-        ul.textContent = '';
       }
     }else{
       ul.textContent = '';
@@ -69,6 +67,8 @@ var start = {
   },
 
   outputResult: function(outputArray){
+    var ul = document.querySelector('#result').querySelector('ul');
+    ul.textContent = '';
     for (var i = 0; i < outputArray.length; i++) {
       var li = document.createElement('li'), h3 = document.createElement('h2'), p = document.createElement('p'), a = document.createElement('a');
       if(!outputArray[i].hasname){
@@ -80,7 +80,7 @@ var start = {
         li.className = 'available';
         li.appendChild(h3);
         li.appendChild(p);
-        document.querySelector('#result').querySelector('ul').appendChild(li);
+        ul.appendChild(li);
       }else{
         h3.appendChild(document.createTextNode(outputArray[i].from));
         if(outputArray[i].error == true){
@@ -96,7 +96,7 @@ var start = {
         li.appendChild(h3);
         li.appendChild(p);
 
-        document.querySelector('#result').querySelector('ul').appendChild(li);
+        ul.appendChild(li);
       }
     }
     window.scrollBy(0, document.body.scrollHeight);
