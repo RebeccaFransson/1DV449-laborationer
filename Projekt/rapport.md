@@ -57,20 +57,14 @@ Jag kollade också hur snabb min applikation är på "[Pingdom Website Speed tes
 # Reflektioner
 Projektet har gått väldigt bra, dock har jag haft en till tuff kurs vid sidan om denna kursen. Det har resulterat i att jag kunnat lägga ner den tiden som jag egentligen ville på detta projekt. Dem problemen jag stött på har varit några fundering på hur jag skulle lösa offline-first och cachningar. Twitter krävde en hel del läsning kring deras API men jag tog hjälp utav ett npm som förenklade anropen till APIet.
 
-Jag har helt klart velat implementera fler anrop till flera olika APIer. På så sätt skulle min applikation kanske inte bli mer avancerad, för det är den inte. Men applikationen skulle få mer funktionallitet och därmed också bli något större. När ett användarnamn är ledigt kommer det upp en länk där man kan registera sig på tredje-parts applikationen. Denna länk hade jag velat utveckla och på något sätt skicka med det inskriva användarnamnet till en registerings-sida så användaren redan påbörjat registeringen när den går ifrån min applikation. Jag hade också gärna velat förbättra implemeteringen utav det som appliaktionen får tillbaka från APIet. Om man tillexempel får tillbaka något som är null, så skall appliaktionen kolla så att det inte skrivs ut "null" för avnändaren.
+Jag har helt klart velat implementera fler anrop till flera olika APIer. På så sätt skulle min applikation kanske inte bli mer avancerad, för det är den inte. Men applikationen skulle få mer funktionalitet och därmed också bli något större. När ett användarnamn är ledigt kommer det upp en länk där man kan registrera sig på tredje-parts applikationen. Denna länk hade jag velat utveckla och på något sätt skicka med det inskriva användarnamnet till en registrerings-sida så användaren redan påbörjat registeringen när den går ifrån min applikation. Jag hade också gärna velat förbättra implementeringen utav det som applikationen får tillbaka från APIet. Om man tillexempel får tillbaka något som är null, så skall applikationen kolla så att det inte skrivs ut "null" för användaren
 
-Jag hade gärna velat arbeta vidare med min appliaktion så den blir lika stor som [namechk](https://namechk.com/) - fast på min applikation skall användaren ha möjlighet att kunna gå in på de upptagna användarnamnens profiler. Men den sådan applikation hade en användare kunnat kolla upp andras användarnamn på flera olika tredje-parts applikationer.
+Jag hade gärna velat arbeta vidare med min applikation så den blir lika stor som [namechk](https://namechk.com/) - fast på min applikation skall användaren ha möjlighet att kunna gå in på de upptagna användarnamnens profiler. Men den sådan applikation hade en användare kunnat kolla upp andras användarnamn på flera olika tredje-parts applikationer.
 
- hade velat implem bättre respomse från api, tex ingen länk
 # Betygshöjande motivation
-lätt att lägga till fler apierna
-enkelt att bygga ut
-mycket validering - säker
+Jag ska inte ljuga, min applikation är inte så stor eller avancerad. Men det är mycket enkelt att bygga ut. Då allt på klienten är responsiv så är allt som behövs fler anrop till fler tredje-pars applikationer.
 
+Applikationen är också väldigt säker och enkelt att hålla säker då det inte krävs någon sorts inloggning eller liknande.
 
-För att den är bäst!
-
-
-
-
-c
+Applikationen är också väldigt enkelt för användare att använda och ser trevlig ut.
+Användaren blir också meddelad om något gått fel(inmatningen utav ett användarnamn, tappat uppkoppplingen eller när något dåligt har hänt på tredje-parts applikationerna )
