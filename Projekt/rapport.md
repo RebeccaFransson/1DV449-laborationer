@@ -54,6 +54,7 @@ Kod relaterat finns det ingen duplicerad kod.
 
 Jag kollade också hur snabb min applikation är på "[Pingdom Website Speed test](http://tools.pingdom.com/fpt/)". Dock är min appliktion inte så stor så det var rätt enkelt att få den rätt snabb. Såklart gör dessa prestanda optimeringar större skillnad vid större applikationer.
 
+#### valde att inte göra någon milimalisering då det inte är så mycket kod
 # Reflektioner
 Projektet har gått väldigt bra, dock har jag haft en till tuff kurs vid sidan om denna kursen. Det har resulterat i att jag kunnat lägga ner den tiden som jag egentligen ville på detta projekt. Dem problemen jag stött på har varit några fundering på hur jag skulle lösa offline-first och cachningar. Twitter krävde en hel del läsning kring deras API men jag tog hjälp utav ett npm som förenklade anropen till APIet.
 

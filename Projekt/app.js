@@ -12,8 +12,8 @@
       consumer_key: 'iK4ua1CRwXVjDUgxC13Q0pBnE',
       consumer_secret: 'VYAbXKA7ff13WXmzzFKrwzEWKxuQmt2MJY7EYfxbIHyCQSF73x',
       access_token_key: '332782164-5ORdPdHamsBJZ5bhbnE0Oj0VdCImqsdudbLuJdIF',
-      access_token_secret: 'eRHoaGh8a3T5mOyoUMkosSIE3bv40ReGT7Ty8SkY0ViU8'
-    });
+      access_token_secret: 'eRHoaGh8a3T5mOyoUMkosSIE3bv40ReGT7Ty8SkY0ViU8'});
+
 
   app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
@@ -21,6 +21,7 @@
   });
 
   app.get('/inputName', function(req, res){
+
     var name = req._parsedOriginalUrl.query;
     Promise.all([getAPI.twitter(name),
                 getAPI.spotify(name),
@@ -51,16 +52,9 @@
     spotify: function(name){
       return new Promise(function(resolve, reject) {
         request('https://api.spotify.com/v1/users/'+name, function (error, response, answer) {
-          console.log('spotyfi:');
-          console.log(answer);
           if (!error && response.statusCode == 200) {
             var userInfo = JSON.parse(answer);
-            console.log(userInfo);
-            if(userInfo.display_name != null){
-                var user = {from: 'Spotify', hasname: true, name: userInfo.display_name, url: userInfo.external_urls.spotify};
-            }else{
-              var user = {from: 'Spotify', hasname: false, signup: 'www.spotify.com/signup/'};
-            }
+            var user = {from: 'Spotify', hasname: true, name: userInfo.display_name, url: userInfo.external_urls.spotify};
           }else if(response.statusCode == 404 || response.statusCode == 400){
             var user = {from: 'Spotify', hasname: false, signup: 'www.spotify.com/signup/'};
           }else{
@@ -76,7 +70,7 @@
         request('https://api.tumblr.com/v2/blog/'+name+'.tumblr.com/info?api_key=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4', function (error, response, answer) {
           var userInfo = JSON.parse(answer);
           if (!error && response.statusCode == 200) {
-            var user = {from: 'tumblr', hasname: true, name: userInfo.response.blog.name, url: userInfo.response.blog.url};
+              var user = {from: 'tumblr', hasname: true, name: userInfo.response.blog.name, url: userInfo.response.blog.url};
           }else if(response.statusCode == 404){
             var user = {from: 'tumblr', hasname: false, signup: 'www.tumblr.com/register'}
           }else{
