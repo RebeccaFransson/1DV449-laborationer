@@ -26,9 +26,8 @@
     Promise.all([getAPI.twitter(name),
                 getAPI.spotify(name),
                 getAPI.tumblr(name)]).then(function(data){
-                  //setTimeout(function(){res.send(JSON.stringify(data)); }, 4000);
                   res.send(JSON.stringify(data));
-    })
+    });
   });
 
   var getAPI = {
@@ -42,7 +41,7 @@
                 user = (tweets[0].screen_name.toLowerCase() == name.toLowerCase()) ? {from: 'Twitter', hasname: true, name: tweets[0].screen_name, url: 'https://twitter.com/'+tweets[0].screen_name} : user;
             }
           }else{
-            user = {from: 'Spotify', hasname: true, error: true};
+            user = {from: 'Spotify', hasname: true, error: true, message: 'The third-party server gave a error'};
           }
           resolve(user);
         });
@@ -56,9 +55,9 @@
             var userInfo = JSON.parse(answer);
             var user = {from: 'Spotify', hasname: true, name: userInfo.display_name, url: userInfo.external_urls.spotify};
           }else if(response.statusCode == 404 || response.statusCode == 400){
-            var user = {from: 'Spotify', hasname: false, signup: 'www.spotify.com/signup/'};
+            var user = {from: 'Spotify', hasname: false, signup: 'https://www.spotify.com/se/signup/'};
           }else{
-            var user = {from: 'Spotify', hasname: true, error: true};
+            var user = {from: 'Spotify', hasname: true, error: true, message: 'The third-party server gave a error'};
           }
           resolve(user);
         });
@@ -72,9 +71,9 @@
           if (!error && response.statusCode == 200) {
               var user = {from: 'tumblr', hasname: true, name: userInfo.response.blog.name, url: userInfo.response.blog.url};
           }else if(response.statusCode == 404){
-            var user = {from: 'tumblr', hasname: false, signup: 'www.tumblr.com/register'}
+            var user = {from: 'tumblr', hasname: false, signup: 'www.tumblr.com/register'};
           }else{
-            var user = {from: 'tumblr', hasname: true, error: true}
+            var user = {from: 'tumblr', hasname: true, error: true, message: 'The third-party server gave a error'};
           }
           resolve(user);
         });

@@ -46,11 +46,7 @@ BODY{
   font-size: 55px;
   color: white;
   text-align: center;
-  border-bottom: rgba(0, 0, 0, 0.24) dotted 2px;
   background-color: rgba(212, 210, 210, 0.25);
-}
-#media form #inputname input[placeholder]{
-color:white;
 }
 
 #media #button{

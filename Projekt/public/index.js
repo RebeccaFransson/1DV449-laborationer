@@ -56,6 +56,9 @@ var start = {
                 //spara till localstorage
                 localStorage.setItem('search', JSON.stringify(data));
                 localStorage.setItem('name', JSON.stringify(name));
+              },
+              error: function(err){
+                start.outputResult([{from: 'Server Error', hasname: true, error: true, message: '"'+err.statusText+'"-error occurred.'}]);
               }
         });
       }
@@ -84,7 +87,7 @@ var start = {
       }else{
         h3.appendChild(document.createTextNode(outputArray[i].from));
         if(outputArray[i].error == true){
-          p.appendChild(document.createTextNode('The third-party server gave a error'));
+          p.appendChild(document.createTextNode(outputArray[i].message));
           li.className = 'errorServer';
         }else{
           a.setAttribute('href', outputArray[i].url);
