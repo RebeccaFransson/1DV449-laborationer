@@ -1,12 +1,13 @@
 "use strict";
+/*REQUIRES*/
   var express = require('express');
   var app = express();
   var path = require('path');
   app.use(express.static(path.join(__dirname, 'public')));
   var http = require('http').Server(app);
   var request = require('request');
-
   var Twitter = require('twitter');
+  var Promise = require("es6-promise").Promise
 
     var twitterClient = new Twitter({
       consumer_key: 'iK4ua1CRwXVjDUgxC13Q0pBnE',
@@ -14,14 +15,14 @@
       access_token_key: '332782164-5ORdPdHamsBJZ5bhbnE0Oj0VdCImqsdudbLuJdIF',
       access_token_secret: 'eRHoaGh8a3T5mOyoUMkosSIE3bv40ReGT7Ty8SkY0ViU8'});
 
-
+//START-SIDA
   app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
-
   });
 
-  app.get('/inputName', function(req, res){
-
+/*MOTTAGIT ETT ANVÄNDARNAMN
+Kör promise på mina api-anrop så att alla anrop kommit tillbaka innan data skcikas till klienten*/
+  app.get('/inputname', function(req, res){
     var name = req._parsedOriginalUrl.query;
     Promise.all([getAPI.twitter(name),
                 getAPI.spotify(name),
@@ -30,6 +31,7 @@
     });
   });
 
+/*HÄMTA DATA FRÅN APIERNA*/
   var getAPI = {
     twitter: function(name){
       return new Promise(function(resolve, reject) {
@@ -41,7 +43,7 @@
                 user = (tweets[0].screen_name.toLowerCase() == name.toLowerCase()) ? {from: 'Twitter', hasname: true, name: tweets[0].screen_name, url: 'https://twitter.com/'+tweets[0].screen_name} : user;
             }
           }else{
-            user = {from: 'Spotify', hasname: true, error: true, message: 'The third-party server gave a error'};
+            user = {from: 'tTitter', hasname: true, error: true, message: 'The third-party server gave a error'};
           }
           resolve(user);
         });

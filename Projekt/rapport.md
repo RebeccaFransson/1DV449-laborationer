@@ -65,7 +65,9 @@ Kod relaterat finns det ingen duplicerad kod.
 
 Jag kollade också hur snabb min applikation är på "[Pingdom Website Speed test](http://tools.pingdom.com/fpt/)". Dock är min appliktion inte så stor så det var rätt enkelt att få den rätt snabb. Såklart gör dessa prestanda optimeringar större skillnad vid större applikationer.
 
-Jag valde dock att inte göra någon minimalisering på min kod då det inte är mycket kod som ligger bakom min applikation. Annars hade det varit det varit en bra ide att låta koden gå igenom en "Minification". På så sätt förminskas koden och går snabbare för webbläsaren att läsa. Det är en bra ide att göra på större projekt, där denna optimering gör större skillnad. [7]
+Jag valde dock att inte göra någon minimalisering på all min kod då det inte är mycket kod som ligger bakom min applikation. Men jag provade [CSS minifier](cssminifier.com) på min CSS-kod. Annars hade det varit det varit en bra ide att låta all kod gå igenom en "Minification". På så sätt förminskas koden och går snabbare för webbläsaren att läsa. Det är en bra ide att göra på större projekt, där denna optimering gör större skillnad. [7]
+
+Applikationen använder sig inte heller utav något font-ramverk vilket också ökar prestandan.
 
 # Reflektioner
 Projektet har gått väldigt bra, dock har jag haft en till tuff kurs vid sidan om denna kursen. Det har resulterat i att jag kunnat lägga ner den tiden som jag egentligen ville på detta projekt. Dem problemen jag stött på har varit några fundering på hur jag skulle lösa offline-first och cachningar. Twitter krävde en hel del läsning kring deras API men jag tog hjälp utav ett npm som förenklade anropen till APIet.
@@ -76,6 +78,8 @@ Jag har helt klart velat implementera fler anrop till flera olika APIer. På så
 
 Jag hade gärna velat arbeta vidare med min applikation så den blir lika stor som [namechk](https://namechk.com/) - fast på min applikation skall användaren ha möjlighet att kunna gå in på de upptagna användarnamnens profiler. Men den sådan applikation hade en användare kunnat kolla upp andras användarnamn på flera olika tredje-parts applikationer.
 
+Jag vill såklart också jobba vidare på utseendet på applikationen.
+
 # Betygshöjande motivation
 Jag ska inte ljuga, min applikation är inte så stor eller avancerad. Men det är mycket enkelt att bygga ut. Då allt på klienten är responsiv så är allt som behövs fler anrop till fler tredje-pars applikationer.
 
@@ -85,11 +89,17 @@ Applikationen är också väldigt enkelt för användare att använda och ser tr
 Användaren blir också meddelad om något gått fel(inmatningen utav ett användarnamn, tappat uppkoppplingen eller när något dåligt har hänt på tredje-parts applikationerna).
 
 # Referenser
-författar, titel, länk, datum, tillgäglig
+
 1. The Open Web Application Security Project, "OWASP Periodic Table of Vulnerabilities", "www.owasp.org", 15 November 2013, Tillgänglig: [Cross Site Scripting](https://www.owasp.org/index.php/OWASP_Periodic_Table_of_Vulnerabilities_-_Cross-Site_Scripting_(XSS)).
+
 2. The Open Web Application Security Project, "OWASP Periodic Table of Vulnerabilities", "www.owasp.org", 15 November 2013, Tillgänglig: [Cross Site Scripting](https://www.owasp.org/index.php/OWASP_Periodic_Table_of_Vulnerabilities_-_Cross-Site_Request_Forgery).
-3. "A field guide to static apps", "Front-End Error Handling",  "staticapps.org", publicerings-datum ej känt, Tillgänglig: [Error Handling](https://staticapps.org/articles/front-end-error-handling/)
-4. Kalid Azad, "How To Optimize Your Site With HTTP Caching", "betterexplained.com/", publicerings-datum ej känt, Tillgänglig: [How To Optimize Your Site With HTTP Caching](http://betterexplained.com/articles/how-to-optimize-your-site-with-http-caching/)
-5. Ilya Grigorik, "HTTP caching", "developers.google.com/", publicerings-datum ej känt, Tillgänglig:  [HTTP caching](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=en)
-6. "FRONT END OPTIMIZATION (FEO)", "Akamai", publicerings-datum ej känt, Tillgänglig: [Font end optimazation](https://www.akamai.com/us/en/resources/front-end-optimization-feo.jsp)
+
+3. "A field guide to static apps", "Front-End Error Handling",  "staticapps.org", publicerings-datum ej känt, Tillgänglig: [Error Handling](https://staticapps.org/articles/front-end-error-handling/).
+
+4. Kalid Azad, "How To Optimize Your Site With HTTP Caching", "betterexplained.com/", publicerings-datum ej känt, Tillgänglig: [How To Optimize Your Site With HTTP Caching](http://betterexplained.com/articles/how-to-optimize-your-site-with-http-caching/).
+
+5. Ilya Grigorik, "HTTP caching", "developers.google.com/", publicerings-datum ej känt, Tillgänglig:  [HTTP caching](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=en).
+
+6. "FRONT END OPTIMIZATION (FEO)", "Akamai", publicerings-datum ej känt, Tillgänglig: [Font end optimazation](https://www.akamai.com/us/en/resources/front-end-optimization-feo.jsp).
+
 7. "Best Practices for speeding up your website", yahoo developers, publicerings-datum ej känt, Tillgänglig: [Minimize](https://developer.yahoo.com/performance/rules.html#Minimize=)

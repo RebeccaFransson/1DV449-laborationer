@@ -1,17 +1,19 @@
 'use strict';
 
 var start = {
-  url: 'http://localhost:8000',
+  url: 'http://188.166.116.158:8000',//publik
+  //url: 'http://localhost:8000',//lokal
 
-  //skapa en funtion som är onload och kollar om något finns i localstorage och skriver ut det
+  //Onload-funtion som kollar om data finns i localstorage och om webbläsaren stödjer localstorage
+  //Finns data så presenteras den
+
+  //Sätter igång funktionen inputResults om användaren väljer att skicka med enter-tangenten
   start: function(){
     if(typeof(Storage) !== "undefined") {
       if(localStorage.getItem('search')){
           start.outputResult(JSON.parse(localStorage.getItem('search')).sort());
           document.querySelector('#name').textContent = JSON.parse(localStorage.getItem('name'));
       }
-    }else{
-        // stödjer ej localstorage
     }
     document.querySelector('#media').onkeydown = function(e){
        if(e.keyCode == 13){
@@ -21,6 +23,10 @@ var start = {
     };
   },
 
+
+/* Tar emot formulär-datan och validerar den,
+när den är validerad skickas den vidare till servern,
+när svaraet från serven kommer skickas den mottagna datan till nästa funktion outputResult */
   inputResults: function(form){
     var err = document.querySelector('#error');
     var input = document.querySelector('#inputname');
@@ -37,6 +43,7 @@ var start = {
           name = start.capitalize(name).replace(/\s/g, '');
           err.textContent = 'White-spaces is not allowed, i have put it together for you';
           err.style.width = '312px';
+          input.value = name;
         }
         document.querySelector('#name').textContent = name;
         ul.textContent = '';
@@ -53,12 +60,8 @@ var start = {
                 data = JSON.parse(data);
                 data.sort(function(a,b){return a.hasname-b.hasname});
                 start.outputResult(data);
-                //spara till localstorage
                 localStorage.setItem('search', JSON.stringify(data));
                 localStorage.setItem('name', JSON.stringify(name));
-              },
-              error: function(err){
-                start.outputResult([{from: 'Server Error', hasname: true, error: true, message: '"'+err.statusText+'"-error occurred.'}]);
               }
         });
       }
@@ -68,7 +71,8 @@ var start = {
     }
 
   },
-
+/*Skriver ut den mottagnadatan
+Beroende på vilka egenskaper objekten har så presenteras dem i olika färger osv*/
   outputResult: function(outputArray){
     var ul = document.querySelector('#result').querySelector('ul');
     ul.textContent = '';
