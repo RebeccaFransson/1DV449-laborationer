@@ -8,12 +8,10 @@
   var request = require('request');
   var Twitter = require('twitter');
   var Promise = require("es6-promise").Promise
+  var keys = require("./api_keys/keys.js");
 
-    var twitterClient = new Twitter({
-      consumer_key: 'iK4ua1CRwXVjDUgxC13Q0pBnE',
-      consumer_secret: 'VYAbXKA7ff13WXmzzFKrwzEWKxuQmt2MJY7EYfxbIHyCQSF73x',
-      access_token_key: '332782164-5ORdPdHamsBJZ5bhbnE0Oj0VdCImqsdudbLuJdIF',
-      access_token_secret: 'eRHoaGh8a3T5mOyoUMkosSIE3bv40ReGT7Ty8SkY0ViU8'});
+console.log(keys);
+    var twitterClient = new Twitter(keys.twitter);
 
 //START-SIDA
   app.get('/', function (req, res) {
@@ -68,7 +66,7 @@ Kör promise på mina api-anrop så att alla anrop kommit tillbaka innan data sk
 
     tumblr: function(name){
       return new Promise(function(resolve, reject) {
-        request('https://api.tumblr.com/v2/blog/'+name+'.tumblr.com/info?api_key=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4', function (error, response, answer) {
+        request('https://api.tumblr.com/v2/blog/'+name+'.tumblr.com/info?api_key='+keys.tumblr, function (error, response, answer) {
           var userInfo = JSON.parse(answer);
           if (!error && response.statusCode == 200) {
               var user = {from: 'tumblr', hasname: true, name: userInfo.response.blog.name, url: userInfo.response.blog.url};
